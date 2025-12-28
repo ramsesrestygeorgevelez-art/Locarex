@@ -1,6 +1,6 @@
 # Locarex
 
-<img src="./Locarex.png" alt="Locarex logo" width="40" height="40"/>
+<img src="./Locarex.png" alt="Locarex logo" width="300" height="100"/>
 
 A small, lightweight module to help locate users and objects for building location-aware apps and demos.
 

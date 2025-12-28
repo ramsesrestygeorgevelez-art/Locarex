@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Locarex Documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-palenight.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/scroll/simplescrollbars.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <style>
+    body { background:#0f1220; color:#fff; }
+    .navbar { background:#141833; }
+    .sidebar { background:#141833; min-height:100vh; position:sticky; top:0; }
+    .sidebar a { color:#ccc; text-decoration:none; display:block; padding:.5rem .75rem; border-radius:.25rem; }
+    .sidebar a:hover, .sidebar a.active { background:#1a1f45; color:#fff; }
+    .card { background:#141833; border:1px solid #1d2350; }
+    .CodeMirror { height:auto; border-radius:.5rem; border:1px solid #1d2350; font-size:.9rem; }
+    .footer { color:#aaa; }
+    .code-actions { text-align:right; margin-top:.25rem; }
+    .code-actions .btn { padding:.15rem .5rem; font-size:.8rem; }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-dark px-3">
+    <a class="navbar-brand" href="#">Locarex</a>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <aside class="col-12 col-md-3 col-lg-2 sidebar p-3">
+        <div class="mb-3 text-uppercase small text-muted">Docs</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="#modules">Modules</a>
+        <a href="#api">API Reference</a>
+        <a href="#examples">Examples</a>
+      </aside>
+      <main class="col-12 col-md-9 col-lg-10 p-4">
+
+        <!-- Overview -->
+        <section id="overview" class="mb-4">
+          <h2>Overview</h2>
+          <div class="card p-3">
+            <p>Locarex is a Promise‑based JavaScript SDK for location handling. It standardizes results, resolves codes, searches nearby places, visualizes data on maps, and abstracts providers.</p>
+          </div>
+        </section>
+
+        <!-- Quickstart -->
+        <section id="quickstart" class="mb-4">
+          <h2>Quickstart</h2>
+          <div class="card p-3">
+            <p>Resolve a code and print a standardized summary—without async/await:</p>
+            <div class="code-actions">
+              <button class="btn btn-outline-light btn-sm" data-copy="#code-quickstart">Copy</button>
+            </div>
+            <textarea id="code-quickstart">
+// Quickstart example
+import Locarex from "./Locarex.js";
+
+const resolver = new Locarex.LocateFromCode({
+  providers: [Locarex.LocateFromCode.StaticProvider({
+    "TAGUIG01": { lat: 14.5547, lng: 121.0244, address: "Taguig City Center" }
+  })]
+});
+
+resolver.resolve("TAGUIG01")
+  .then(result => {
+    console.log(Locarex.GeoFormatter.resultSummary(result));
+  })
+  .catch(console.error);
+            </textarea>
+          </div>
+        </section>
+
+        <!-- Modules -->
+        <section id="modules" class="mb-4">
+          <h2>Modules</h2>
+          <div class="card p-3">
+            <ul>
+              <li><strong>LocationGetResult</strong> → unified result object</li>
+              <li><strong>LocateFromCode</strong> → resolve custom codes</li>
+              <li><strong>LocateStreetFromCountry</strong> → resolve street + country</li>
+              <li><strong>SearchNearby</strong> → search for places around coordinates</li>
+              <li><strong>MapLocator</strong> → visualize results on maps</li>
+              <li><strong>LocateFromUser</strong> → get location from user provider</li>
+              <li><strong>UserProvider</strong> → handle permissions and geolocation</li>
+              <li><strong>Helpers</strong> → cache, distance, formatting, adapters</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- API Reference -->
+        <section id="api" class="mb-4">
+          <h2>API Reference</h2>
+          <div class="card p-3">
+            <p>All core classes and methods available in Locarex:</p>
+            <div class="code-actions">
+              <button class="btn btn-outline-light btn-sm" data-copy="#code-api">Copy</button>
+            </div>
+            <textarea id="code-api">
+// LocationGetResult
+new LocationGetResult({ lat, lng, address, source })
+  .toString()
+  .toJSON()
+  .fromGeolocation(pos)
+
+// LocateFromCode
+resolver.resolve(code) -> Promise<LocationGetResult>
+resolver.addProvider(provider)
+LocateFromCode.StaticProvider(map)
+
+// LocateStreetFromCountry
+locator.resolve(country, street) -> Promise<LocationGetResult>
+
+// SearchNearby
+searchNearby.search(query, lat, lng) -> Promise<LocationGetResult[]>
+
+// MapLocator
+mapLocator.init()
+mapLocator.addMarker(location, opts)
+mapLocator.centerOn(location, zoom)
+mapLocator.clearMarkers()
+
+// LocateFromUser
+locator.getLocation(user) -> Promise<LocationGetResult>
+
+// UserProvider
+user.permissionToUseLocation() -> Promise<{lat,lng,address}>
+user.getIsPermissioned() -> Promise<boolean>
+
+// Helpers
+LocationCache.get/set/has/clear
+DistanceUtils.haversine(lat1,lng1,lat2,lng2)
+GeoFormatter.resultSummary(result)
+ProviderAdapter.search(query, lat, lng)
+            </textarea>
+          </div>
+        </section>
+
+        <!-- Examples -->
+        <section id="examples" class="mb-4">
+          <h2>Examples</h2>
+          <div class="card p-3">
+            <div class="code-actions">
+              <button class="btn btn-outline-light btn-sm" data-copy="#code-examples">Copy</button>
+            </div>
+            <textarea id="code-examples">
+// Resolve, search, and display
+resolver.resolve("TAGUIG01")
+  .then(loc => {
+    console.log("Resolved:", loc.toString());
+    return Locarex.searchNearby.search("cafe", loc.lat, loc.lng);
+  })
+  .then(results => {
+    results.forEach(r => console.log(r.toString()));
+  })
+  .catch(console.error);
+            </textarea>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <section class="footer py-3">
+          <div class="d-flex justify-content-between">
+            <span>Locarex • Promise-based location toolkit</span>
+            <span class="small">Made for clean, modular developer experiences</span>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- CodeMirror JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/scroll/simplescrollbars.min.js"></script>
+
+  <script>
+    // Initialize CodeMirror for all textareas
+    ["#code-quickstart", "#code-api", "#code-examples"].forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) {
+        CodeMirror.fromTextArea(el, {
+          mode: "javascript",
+          theme: "material-palenight",
+          lineNumbers: true,
+          readOnly: true,
+          styleActiveLine: true
+        })
+      }
+    })
+
+  </script>
+  </body>
+</html>

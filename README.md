@@ -1,7 +1,7 @@
 # Locarex
 
 A module that locates anything to make location apps.
-
+<img src="![alt text](file:///C:/Users/HP/Downloads/Locarex.png)">
 ## Use this code in HTML to import it:
 
 ```html

@@ -78,28 +78,7 @@ Record.play();
 Notes:
 - Ensure the import path is correct and the module exposes `Record`. If you host Recordanex, use a full URL to the .js file or package entry.
 
-Images and the logo
-- The file:// path (e.g. file:///C:/Users/HP/Downloads/Locarex.png) WILL NOT render on GitHub or when others view the README.
-- Recommended: add the image to this repository, e.g. create an `assets/` folder and commit your image as `assets/Locarex.png`.
-- Reference it relatively in the README:
-  - `![Locarex logo](./assets/Locarex.png)`
-- Steps to add the image locally and push:
-  1. Move the file to your repo: `mkdir -p assets && mv "C:/Users/HP/Downloads/Locarex.png" ./assets/Locarex.png`
-  2. Git commit and push:
-     - `git add assets/Locarex.png README.md`
-     - `git commit -m "Add README and logo"`
-     - `git push origin main` (or your branch)
 
 Contributing
 - Open issues for bugs or feature requests.
 - PRs welcome — please include tests or a short demo.
-
-License
-- Add a license file (e.g. MIT) if you want others to reuse your code. Example: `LICENSE` with MIT text.
-
-Notes & next steps
-- I updated the README to be more structured and to explain how to properly include the logo image.
-- If you'd like, I can:
-  - commit this README.md to the repository, and/or
-  - add the image file to `assets/Locarex.png` (you can upload it here or give me permission to push).
-Tell me which action you want next and provide the image file if you want me to add it into the repo.
